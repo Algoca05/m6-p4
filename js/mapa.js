@@ -81,6 +81,8 @@ am5.ready(function() {
             var centroid = target.geoCentroid();
             console.log("Clicked country:", clickedCountry); // Print the clicked country
             console.log("Coordinates: Latitude", centroid.latitude, "Longitude", centroid.longitude); // Print the coordinates
+            setCoordinates(centroid.latitude, centroid.longitude);
+            localStorage.setItem('clickedCountry', clickedCountry);
         }
         previousPolygon = target;
     });
@@ -94,6 +96,18 @@ am5.ready(function() {
                 chart.animate({ key: "rotationX", to: -centroid.longitude, duration: 1500, easing: am5.ease.inOut(am5.ease.cubic) });
                 chart.animate({ key: "rotationY", to: -centroid.latitude, duration: 1500, easing: am5.ease.inOut(am5.ease.cubic) });
             }
+        }
+    }
+
+    function loadSettings() {
+        const savedCountry = localStorage.getItem('clickedCountry');
+        if (savedCountry) {
+            // Logic to select the saved country on the map
+            polygonSeries.mapPolygons.each(function(polygon) {
+                if (polygon.dataItem.dataContext.name === savedCountry) {
+                    polygon.set("active", true);
+                }
+            });
         }
     }
 
@@ -138,5 +152,6 @@ am5.ready(function() {
     });
 
     // Hacer que el mapa aparezca con animación al cargar
+    loadSettings();
     chart.appear(1000, 100);
 });

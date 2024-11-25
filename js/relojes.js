@@ -1,7 +1,67 @@
 // Digital Clock
+let dateFormat = '24H'; // Default date format
+
 function updateDigitalClock(timezone) {
-    const now = luxon.DateTime.now().setZone(timezone).toFormat('HH:mm:ss');
-    document.getElementById('digitalClock').textContent = now;
+    let now = luxon.DateTime.now().setZone(timezone);
+    let timeString, dateString;
+
+    if (dateFormat === '24H') {
+        timeString = now.toFormat('HH:mm:ss');
+        dateString = now.toFormat('yyyy-MM-dd');
+    } else if (dateFormat === '12H') {
+        timeString = now.toFormat('hh:mm:ss a');
+        dateString = now.toFormat('yyyy-MM-dd');
+    } else if (dateFormat === 'ISO') {
+        timeString = now.toISO();
+        dateString = '';
+    } else if (dateFormat === 'DD/MM/YYYY') {
+        timeString = now.toFormat('HH:mm:ss');
+        dateString = now.toFormat('dd/MM/yyyy');
+    } else if (dateFormat === 'DIA-MES-AÑO') {
+        timeString = now.toFormat('HH:mm:ss');
+        dateString = now.toFormat('dd-MM-yyyy');
+    } else if (dateFormat === 'DIA-MES-AÑO (SIMPLIFICADO)') {
+        timeString = now.toFormat('HH:mm:ss');
+        dateString = now.toFormat('dd-MM-yy');
+    }
+
+    document.getElementById('digitalClock').textContent = timeString;
+    document.getElementById('digitalDate').textContent = dateString;
+    document.getElementById('selectedCountry').textContent = localStorage.getItem('clickedCountry') || 'No country selected';
+}
+
+let latitude, longitude, currentTimezone;
+
+function setCoordinates(lat, lon) {
+    latitude = lat;
+    longitude = lon;
+    currentTimezone = tzlookup(latitude, longitude);
+    localStorage.setItem('latitude', latitude);
+    localStorage.setItem('longitude', longitude);
+    updateClocks(currentTimezone);
+}
+
+function setDateFormat(format) {
+    dateFormat = format;
+    localStorage.setItem('dateFormat', dateFormat);
+    updateClocks(currentTimezone);
+}
+
+function loadSettings() {
+    const savedDateFormat = localStorage.getItem('dateFormat');
+    const savedLatitude = localStorage.getItem('latitude');
+    const savedLongitude = localStorage.getItem('longitude');
+
+    if (savedDateFormat) {
+        dateFormat = savedDateFormat;
+    }
+
+    if (savedLatitude && savedLongitude) {
+        setCoordinates(parseFloat(savedLatitude), parseFloat(savedLongitude));
+    } else {
+        currentTimezone = 'local';
+        updateClocks(currentTimezone);
+    }
 }
 
 // Analog Clock
@@ -26,6 +86,6 @@ function updateClocks(timezone) {
     updateAnalogClock(timezone);
 }
 
-// Initial call to display time immediately
-updateClocks('local');
-setInterval(() => updateClocks('local'), 1000);
+// Load settings and initial call to display time immediately
+loadSettings();
+setInterval(() => updateClocks(currentTimezone), 1000);

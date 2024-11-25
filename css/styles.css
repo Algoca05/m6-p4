@@ -64,3 +64,25 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+#digitalDate {
+    background-color: white;
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+    left: 10px;
+    top: 30px;
+}
+
+#digitalClockContainer {
+    left: 10px;
+    top: 10px;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#digitalClock, #digitalDate {
+    color: black;
+}
