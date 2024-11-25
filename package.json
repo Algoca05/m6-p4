@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@amcharts/amcharts5": "^5.10.8",
+    "@amcharts/amcharts5-fonts": "^5.0.1",
+    "@amcharts/amcharts5-geodata": "^5.1.4",
+    "luxon": "^3.5.0"
+  }
+}

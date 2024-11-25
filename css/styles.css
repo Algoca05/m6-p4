@@ -1,0 +1,66 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: black;
+    overflow: hidden;
+    position: relative;
+}
+
+#chartdiv {
+    width: 100vmin; /* Set width and height to be equal */
+    height: 100vmin;
+    border-radius: 50%;
+    overflow: hidden; /* Ensure content fits within the circle */
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+@keyframes orbit {
+    from {
+        transform: rotate(0deg) translateX(100px) rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg) translateX(100px) rotate(-360deg);
+    }
+}
+
+#digitalClock, #analogClock {
+    color: white;
+    font-size: 2em;
+    padding: 10px;
+    z-index: 10; /* Ensure clocks are above other elements */
+    background-color: rgba(0, 0, 0, 0.5); /* Add background for better visibility */
+    border-radius: 5px; /* Add border radius for better aesthetics */
+}
+
+#digitalClock {
+    left: 10px;
+    top: 10px;
+    
+    color:black;
+    background-color: white; /* Change background to white */
+    border-radius: 5px; /* Make it circular */
+}
+
+#analogClock {
+    right: 10px;
+    top: 10px;
+    width: 200px; /* Increase size */
+    height: 200px; /* Increase size */
+    background-color: white; /* Change background to white */
+    border-radius: 50%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
