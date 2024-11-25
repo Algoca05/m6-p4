@@ -51,6 +51,9 @@ function loadSettings() {
     const savedDateFormat = localStorage.getItem('dateFormat');
     const savedLatitude = localStorage.getItem('latitude');
     const savedLongitude = localStorage.getItem('longitude');
+    const savedCountry = localStorage.getItem('clickedCountry');
+    const savedCentered = localStorage.getItem('centered');
+    const savedColor = localStorage.getItem('color');
 
     if (savedDateFormat) {
         dateFormat = savedDateFormat;
@@ -61,6 +64,18 @@ function loadSettings() {
     } else {
         currentTimezone = 'local';
         updateClocks(currentTimezone);
+    }
+
+    if (savedCountry) {
+        document.getElementById('selectedCountry').textContent = savedCountry;
+    }
+
+    if (savedCentered) {
+        document.getElementById('selectedCountry').style.textAlign = savedCentered;
+    }
+
+    if (savedColor) {
+        document.getElementById('selectedCountry').style.color = savedColor;
     }
 }
 

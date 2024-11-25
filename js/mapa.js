@@ -83,6 +83,8 @@ am5.ready(function() {
             console.log("Coordinates: Latitude", centroid.latitude, "Longitude", centroid.longitude); // Print the coordinates
             setCoordinates(centroid.latitude, centroid.longitude);
             localStorage.setItem('clickedCountry', clickedCountry);
+            localStorage.setItem('centered', 'center');
+            localStorage.setItem('color', 'black');
         }
         previousPolygon = target;
     });
